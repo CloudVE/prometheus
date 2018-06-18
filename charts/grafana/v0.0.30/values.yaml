@@ -20,8 +20,8 @@ global:
 
 grafana_ini:
   server:
-    domain = foo.bar
-    root_url = %(protocol)s://%(domain)s/grafana/
+    domain: foo.bar
+    root_url: "%(protocol)s://%(domain)s/{{ .Values.ingress.path }}/"
   log:
     mode: console
 # LDAP Authentication can be enabled with the following values on grafana.ini
