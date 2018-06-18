@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: {{ template "grafana.fullname" . }}
-    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    chart: {{ template "grafana.chart" . }}
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
   name: {{ template "grafana.server.fullname" . }}
@@ -46,6 +46,10 @@ spec:
       {{- if .Values.mountGrafanaConfig }}
         - name: grafana-config
           mountPath: /etc/grafana
+      {{- else }}
+        - name: grafana-config
+          mountPath: "/etc/grafana/grafana.ini"
+          subPath: grafana.ini
       {{- end }}
         ports:
         - name: web
@@ -132,7 +136,12 @@ spec:
           hostPath:
             path: /etc/grafana
             type: Directory
+      {{- else }}
+        - name: grafana-config
+          configMap:
+            name: {{ template "grafana.fullname" . }}-cfgmap
       {{- end }}
+
       {{- range .Values.serverDashboardConfigmaps }}
         - name: {{ . }}
           configMap:

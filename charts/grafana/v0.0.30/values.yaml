@@ -17,6 +17,18 @@ global:
   rbacEnable: true
   pspEnable: true
 
+
+grafana.ini:
+  log:
+    mode: console
+# LDAP Authentication can be enabled with the following values on grafana.ini
+## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
+  # auth.ldap:
+  #   enabled: true
+  #   allow_sign_up: true
+  #   config_file: /etc/grafana/ldap.toml
+
+
 ## Pass extra environment variables to the Grafana container.
 ##
 # extraVars:

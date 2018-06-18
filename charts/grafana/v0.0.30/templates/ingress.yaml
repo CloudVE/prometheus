@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 {{- $serviceName := include "grafana.fullname" . }}
-{{- $routePrefix := .Values.routePrefix }}
+{{- $ingressPath := .Values.ingress.path }}
 {{- $releaseName := .Release.Name }}
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -11,7 +11,7 @@ metadata:
 {{- end }}
   labels:
     app: {{ template "grafana.name" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    chart: {{ template "grafana.chart" . }}
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
 {{- if .Values.ingress.labels }}
@@ -24,9 +24,9 @@ spec:
     - host: {{ $host }}
       http:
         paths:
-          - path: "{{ $routePrefix }}"
+          - path: "{{ $ingressPath }}"
             backend:
-              serviceName: {{ printf "%s-%s" $releaseName "grafana" | trunc 63 }}
+              serviceName: {{ $serviceName }}
               servicePort: 80
     {{- end -}}              
 {{- if .Values.ingress.tls }}
