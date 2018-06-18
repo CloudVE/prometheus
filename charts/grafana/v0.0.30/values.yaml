@@ -18,7 +18,10 @@ global:
   pspEnable: true
 
 
-grafana.ini:
+grafana_ini:
+  server:
+    domain = foo.bar
+    root_url = %(protocol)s://%(domain)s/grafana/
   log:
     mode: console
 # LDAP Authentication can be enabled with the following values on grafana.ini
@@ -113,6 +116,8 @@ ingress:
   ## If true, Grafana Ingress will be created
   ##
   enabled: false
+
+  path: /
 
   ## Annotations for Alertmanager Ingress
   ##
