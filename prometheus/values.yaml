@@ -23,7 +23,7 @@ serviceAccounts:
 alertmanager:
   ## If false, alertmanager will not be installed
   ##
-  enabled: true
+  enabled: false
 
   ## alertmanager container name
   ##
@@ -989,7 +989,4 @@ grafana:
     ##
     enabled: true
     path: /grafana
-
-  grafana_ini:
-    server:
-        domain: 192.168.99.100
+    domain: localhost
