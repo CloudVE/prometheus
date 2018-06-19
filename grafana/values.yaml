@@ -20,7 +20,7 @@ global:
 
 grafana_ini:
   server:
-    domain: "{{ .Values.ingress.domain }}"
+    domain: "{{ tpl .Values.ingress.domain . }}"
     root_url: "https://%(domain)s{{ .Values.ingress.path }}"
   log:
     mode: console
@@ -28,9 +28,9 @@ grafana_ini:
   auth.generic_oauth:
     enabled: "true"
     client_id: cloudman
-    auth_url: "https://%(domain)s/auth/realms/master/protocol/openid-connect/auth"
-    token_url: "https://%(domain)s/auth/realms/master/protocol/openid-connect/token"
-    api_url: "https://%(domain)s/auth/realms/master/protocol/openid-connect/userinfo"
+    auth_url: "https://{{ tpl .Values.ingress.domain . }}/auth/realms/master/protocol/openid-connect/auth"
+    token_url: "https://{{ tpl .Values.ingress.domain . }}/auth/realms/master/protocol/openid-connect/token"
+    api_url: "https://{{ tpl .Values.ingress.domain . }}/auth/realms/master/protocol/openid-connect/userinfo"
     tls_skip_verify_insecure: "true"
     allow_sign_up: "true"
 
