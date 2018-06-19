@@ -20,8 +20,8 @@ global:
 
 grafana_ini:
   server:
-    domain: foo.bar
-    root_url: "%(protocol)s://%(domain)s/{{ .Values.ingress.path }}/"
+    domain: "{{ .Values.ingress.domain }}"
+    root_url: "https://%(domain)s{{ .Values.ingress.path }}"
   log:
     mode: console
 # LDAP Authentication can be enabled with the following values on grafana.ini
@@ -117,6 +117,8 @@ ingress:
   ##
   enabled: false
 
+  domain: localhost
+
   path: /
 
   ## Annotations for Alertmanager Ingress
@@ -134,7 +136,8 @@ ingress:
   ##
   # hosts:
   #   - grafana.domain.com
-  hosts: []
+  hosts:
+   - ~
 
   ## TLS configuration for Alertmanager Ingress
   ## Secret must be manually created in the namespace

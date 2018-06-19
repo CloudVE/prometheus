@@ -5,10 +5,15 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-{{- if .Values.ingress.annotations }}
   annotations:
+{{- if .Values.ingress.annotations }}
 {{ toYaml .Values.ingress.annotations | indent 4 }}
 {{- end }}
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    # Grafana needs the trailing slash or things break badly
+    ingress.kubernetes.io/configuration-snippet: |
+      rewrite ^(/{{ $ingressPath }})$ $1/ permanent;
   labels:
     app: {{ template "grafana.name" . }}
     chart: {{ template "grafana.chart" . }}
