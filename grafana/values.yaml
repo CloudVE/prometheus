@@ -24,12 +24,15 @@ grafana_ini:
     root_url: "https://%(domain)s{{ .Values.ingress.path }}"
   log:
     mode: console
-# LDAP Authentication can be enabled with the following values on grafana.ini
-## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
-  # auth.ldap:
-  #   enabled: true
-  #   allow_sign_up: true
-  #   config_file: /etc/grafana/ldap.toml
+# Keycloak integration
+  auth.generic_oauth:
+    enabled: "true"
+    client_id: cloudman
+    auth_url: "https://%(domain)s/auth/realms/master/protocol/openid-connect/auth"
+    token_url: "https://%(domain)s/auth/realms/master/protocol/openid-connect/token"
+    api_url: "https://%(domain)s/auth/realms/master/protocol/openid-connect/userinfo"
+    tls_skip_verify_insecure: "true"
+    allow_sign_up: "true"
 
 
 ## Pass extra environment variables to the Grafana container.
