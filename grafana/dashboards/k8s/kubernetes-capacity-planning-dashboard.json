@@ -1,5 +1,6 @@
 {
     "dashboard": {
+        "uid": "cm_kube_capacity",
         "__inputs": [
             {
                 "description": "",

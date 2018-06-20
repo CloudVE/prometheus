@@ -1,5 +1,6 @@
 {
     "dashboard": {
+        "uid": "cm_kube_cluster",
         "__inputs": [
             {
                 "description": "",

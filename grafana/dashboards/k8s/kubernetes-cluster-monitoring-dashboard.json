@@ -1,5 +1,6 @@
 {
   "dashboard": {
+    "uid": "cm_kube_monitor",
     "__inputs": [
       {
         "name": "DS_PROMETHEUS",

@@ -1,5 +1,6 @@
 {
     "dashboard": {
+        "uid": "cm_kube_resource_req",
         "__inputs": [
             {
                 "description": "",
