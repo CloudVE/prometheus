@@ -10,10 +10,7 @@ metadata:
 {{ toYaml .Values.ingress.annotations | indent 4 }}
 {{- end }}
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: "/"
-    # Grafana needs the trailing slash or things break badly
-    ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^(/{{ $ingressPath }})$ $1/ permanent;
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
   labels:
     app: {{ template "grafana.name" . }}
     chart: {{ template "grafana.chart" . }}
@@ -29,7 +26,7 @@ spec:
     - host: {{ $host }}
       http:
         paths:
-          - path: "{{ $ingressPath }}"
+          - path: "{{ $ingressPath }}(/|$)(.*)"
             backend:
               serviceName: {{ $serviceName }}
               servicePort: 80
